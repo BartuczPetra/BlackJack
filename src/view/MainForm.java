@@ -1,6 +1,8 @@
 package view;
 
 import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -49,6 +51,11 @@ public class MainForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("BlackJack");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Ellenfél"));
 
@@ -183,6 +190,11 @@ public class MainForm extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         jMenuItem1.setText("Kilépés");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -246,6 +258,14 @@ public class MainForm extends javax.swing.JFrame {
         mentes();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        bezaras();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        bezaras();
+    }//GEN-LAST:event_formWindowClosing
+
     public void mentes(){
          JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -261,8 +281,16 @@ public class MainForm extends javax.swing.JFrame {
     }
     
     private void felugro(String szoveg){
+        Icon icon = new ImageIcon(getClass().getResource("res/ikon.jpg"));
         JFrame f=new JFrame();  
-        JOptionPane.showConfirmDialog(f,szoveg,"Kérdés",JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showConfirmDialog(f, szoveg, "Kérdés",  JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, icon);
+        
+    }
+    public void bezaras(){
+        Icon icon = new ImageIcon(getClass().getResource("res/ikon.jpg"));
+        if (JOptionPane.showConfirmDialog(rootPane, "Biztos kilép?", "Kilépés", JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, icon) == JOptionPane.OK_OPTION) {
+            System.exit(0);
+        }
     }
     
     public static void main(String args[]) {
